@@ -50,6 +50,61 @@
 
 \maketitle
 
+\section{Least squares}
+
+Solving the linear least squares
+
+\begin{equation}
+\min \sum \left(y_i - \varphi_i^T \, \theta  \right)^2
+\end{equation}
+
+Then the solution is obtained from the ls-command or pseudo-inverse
+
+\begin{equation}
+M = 
+\begin{bmatrix}
+\varphi_1^T \\
+\varphi_2^T \\
+\vdots \\
+\varphi_N^T \\
+\end{bmatrix} \quad 
+Y = 
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_N \\
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\hat \theta = (M^T \, M)^{-1} M^T Y
+\end{equation}
+
+Assuming that the model is 
+
+\begin{equation}
+y_i = \varphi_i^T \, \theta + V
+\end{equation}
+
+where $V \sim \mathcal{N}(0,\sigma_V^2)$, given $\hat \theta$, we can compute the error $e_i = y_i - \varphi_i^T \, \theta$ we can estimate $\sigma_V^2$ as
+
+\begin{equation}
+\hat \sigma_V^2 = \text{Cov}(e) = \texttt{np.var(Y - M @ THETA)}
+\end{equation}
+
+We then know that $Y \sim \mathcal{N}(0,I \, \sigma_V^2)$ and we can use standard rules when computing the variance for linear equations of random variables.
+
+\begin{equation}
+\begin{split}
+\text{Cov}(\hat \theta) &= \text{Cov}((M^T \, M)^{-1} M^T Y) \\
+& = \left[(M^T \, M)^{-1} M^T \right] \, \text{Cov}(Y) \, \left[(M^T \, M)^{-1} M^T \right]^T \\
+& = \sigma_V^2 \, (M^T \, M)^{-1} M^T \, M \left[(M^T \, M)^{-1}  \right]^T \\
+& = \sigma_V^2 (M^T \, M)^{-1}
+\end{split}
+\end{equation}
+
+
 \section{Recursive Least Squares}
 From "Adaptive control" By K.J. Åström \& Björn Wittermark, the RLS algorithm is defined as:
 
