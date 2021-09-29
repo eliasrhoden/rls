@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[margin=4cm]{geometry}
+\setlength{\parindent}{0px}
+\geometry{a4paper} 
+\linespread{1.1} % Line spacing
+\setlength{\parindent}{0px}
+%\date{2018-11-27}
+% FIGURES AND FLOATS
+\usepackage{graphicx} % Required for including pictures
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+\usepackage[font={small,it}]{caption}
+\usepackage{subcaption}
+\usepackage{epstopdf}
+\graphicspath{{images/}}
+\usepackage{comment}
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{enumitem}
+% MATH
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{accents}
+
+%\usepackage[options]{algorithm2e}
+
+% OTHER
+%\usepackage[]{mcode}
+\usepackage{color}
+
+\usepackage{booktabs}
+\setlength\defaultaddspace{0.5ex}
+\usepackage[math]{cellspace}
+\setlength\cellspacetoplimit{3pt}
+\setlength\cellspacebottomlimit{3pt}
+
+% Cool Epsilon symbol
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\newcommand{\Epsilon}{\mathcal{E}}
+
+
+\title{Recursive Least Squares}
+\author{Elias R. (\textit{github.com/eliasrhoden})}
+
+\begin{document}
+
+\maketitle
+
+\section{Recursive Least Squares}
+From "Adaptive control" By K.J. Åström \& Björn Wittermark, the RLS algorithm is defined as:
+
+\begin{gather}
+K = P_{k-1} \, \varphi_{k-1} \, (\lambda + \varphi_{k-1}^T \, P_{k-1} \, \varphi_{k-1})^{-1} \\
+P_k = (I - K\, \varphi_{k-1}^T) \, P_{k-1} \, \frac{1}{\lambda} \\
+\theta_k = \theta_{k-1} + K \, (y_k - \varphi_{k-1}^T \, \theta_{k-1})
+\end{gather}
+
+For a sample intervall of $\delta_T$ and a desired forgetting time constant $T_f$ the choice of lambda is recomended as
+
+\begin{equation}
+\lambda = e^{-\delta_T/T_f}
+\end{equation}
+
+
+
+\end{document}
